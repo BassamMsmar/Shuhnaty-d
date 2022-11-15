@@ -36,4 +36,5 @@ urlpatterns = [
     path('', include('drivers.urls')),
     path('', include('companies.urls')),
     path('', include('shipments.urls')),
+    path('', include('financial.urls')),
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
