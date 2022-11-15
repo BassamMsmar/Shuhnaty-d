@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Shuhnaty{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{% static 'normalize.css' %}" />
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+  <!-- Navbar -->
+  {% if user.is_authenticated %}
+  <div>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="{% url 'home'%}">Home</a>
+            {% if user.is_superuser %}
+            <a class="nav-link" href="http://127.0.0.1:8000/admin/">admin</a>
+            <a class="nav-link" href="{% url 'company_list'%}">companies</a>
+            {% endif %}
+            <a class="nav-link" href="{% url 'driver_list'%}">Driver</a>
+            <a class="nav-link" href="{% url 'shipments_list'%}">shipments</a>
+          </div>
+        </div>
+        <span class="navbar-text px-3">
+          {% if user.is_authenticated %}
+          <p class="mx-2 d-inline">Hi {{ user.username | capfirst }}</p>
+          <a class="nav-link mx-2 d-inline" href="{% url 'logout' %}">Logout</a>
+          {% else %}
+          <a class="nav-link mx-2 d-inline" href="{% url 'login'%}">Login</a>
+          <a class="nav-link mx-2 d-inline" href="{% url 'signup'%}">signup</a>
+          {% endif %}
+        </span>
+    </nav>
+  </div>
+  {% endif %}
+
+
+
+  <!-- for login -->
+  {% if user.is_authenticated %}
+    <div clss="container border border-primary position-absolute  ">
+      <div class="row m-1 ">
+        <div class="col-2 border border-primary">
+          <ul>
+            <li class="m-3">
+              <h6>order 1 </h6>
+              <ul>
+                <li>
+                  <a href="#">border</a>
+                </li>
+                <li>
+                  <a href="#">border</a>
+                </li>
+                <li>
+                  <a href="#">border</a>
+                </li>
+              </ul>
+            </li>
+            <li class="m-3">
+              <h6>order 1 </h6>
+              <ul>
+                <li>
+                  <a href="#">border</a>
+                </li>
+                <li>
+                  <a href="#">border</a>
+                </li>
+                <li>
+                  <a href="#">border</a>
+                </li>
+              </ul>
+            </li>
+            <li class="m-3">
+              <h6>order 1 </h6>
+              <ul>
+                <li>
+                  <a href="#">border</a>
+                </li>
+                <li>
+                  <a href="#">border</a>
+                </li>
+                <li>
+                  <a href="#">border</a>
+                </li>
+              </ul>
+            </li>
+
+
+        </div>
+        <div class="col-10 border border-primary">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  {% else %}
+
+    {% block login %}
+    {% endblock %}
+
+  {% endif %}
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

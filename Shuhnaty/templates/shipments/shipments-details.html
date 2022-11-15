@@ -1,0 +1,33 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+    <div class="card  m-5 shadow-lg p-2 bg-body rounded" style="max-width: 460px;">
+        <div class="row g-0">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">driver name  : {{ shipment.driver }}</h5>
+                    <h5 class="card-title">company name  : {{ shipment.company }}</h5>
+                    <h5 class="card-title">destination  : {{ shipment.destination }}</h5>
+                    <h5 class="card-title">source  : {{ shipment.source }}</h5>
+                    <h5 class="card-title">amount  : {{ shipment.amount }}</h5>
+                    <h5 class="card-title">employee  : {{ shipment.employee }}</h5>
+                    <h5 class="card-title">date  : {{ shipment.date }}</h5>
+                    <h5 class="card-title">delivery_number  : {{ shipment.delivery_number}}</h5>
+                    <h5 class="card-title">status  : {{ shipment.status }}</h5>
+                </div>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <a class="btn btn-outline-secondary" href="{% url 'shipments_edit' shipment.pk %}">Edit</a>
+                <a class="btn btn-outline-secondary" href="#">Download PDF</a>
+                <a class="btn btn-outline-danger" href="{% url 'shipments_delete' shipment.pk %}">Delete</a>
+
+
+            </div>
+
+        </div>
+    </div>
+
+{% endif %}
+{% endblock %}
