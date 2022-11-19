@@ -5,5 +5,6 @@ from .models import CatchReceipt, Invoices
 
 
 
+
 admin.site.register( Invoices)
 admin.site.register(CatchReceipt)

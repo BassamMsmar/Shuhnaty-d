@@ -1,0 +1,14 @@
+<div class="container text-center">
+    <div class="row align-items-start m-1">
+        <div class="col-12">
+            <button class="btn shadow bg-body rounded m-1 " type="button">
+                <a href="{% url 'invoice_list'%}"> قائمة الفواتير</a>
+            </button>
+            <button class="btn shadow bg-body rounded m-1" type="button">
+                <a href="{% url 'catch_receipt_list' status='all' %}">سندات الصرف</a>
+            </button>
+            <button class="btn shadow bg-body rounded m-1" type="button">سندات القبض</button>
+        </div>
+
+    </div>
+</div>

@@ -2,11 +2,18 @@
 
 
 
-
-
 {% block item %}
-{% if user.is_authenticated %}
-<!-- Begin Page Content -->
+<!-- butten add -->
+{%  include 'financial/buttons.html' %}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<!-- جدول للعرض -->
 <div class="container-fluid">
 
     <!-- تقارير عامة -->
@@ -23,7 +30,7 @@
                         <div class="col mr-2 text-end">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 الفواتير التي تم انشائها</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">427</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_invoices}}</div>
                         </div>
                     </div>
                 </div>
@@ -41,7 +48,7 @@
                         <div class="col mr-2 text-end">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 الفواتير التي تم رفعها</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">113</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_invoices}}</div>
                         </div>
                     </div>
                 </div>
@@ -60,7 +67,7 @@
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">السندات التي تم انشائها
                             </div>
                             <div class="col-auto ">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">202</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{total_catch}}</div>
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <!-- <div class="col">
@@ -86,8 +93,8 @@
                         </div>
                         <div class="col mr-2 text-end">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                سندات مفواترة</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">122</div>
+                                سندات غير مفوترة</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{billed_bonds}}</div>
                         </div>
                     </div>
                 </div>
@@ -108,7 +115,4 @@
     </div>
 
 </div>
-{% endif %}
-
-
 {% endblock %}
