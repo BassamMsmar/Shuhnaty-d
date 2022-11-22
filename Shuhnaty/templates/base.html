@@ -60,30 +60,62 @@
                 <a class="nav-link text-right" href="{% url 'shipments_list'%}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span> لوحة التحكم بالشحنات</span></a>
+                    <ul class=" text-right text-light">
+                        <li>عرض جميع الشحنات </li>
+                        <li>إضافة شحنة</li>
+                        
+                    </ul>
             </li>
             
             <li class="nav-item active">
                 <a class="nav-link text-right" href="{% url 'dashboard_financial' %}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span> المالية</span></a>
+                    <ul class=" text-right text-light">
+                        <li><a href="{% url 'add_catch_receipt' %}" class="text-decoration-none text-white fw-bolder"> سند صرف</a></li>
+                        <li>سند قبض</li>
+                    </ul>
             </li>
             <li class="nav-item active">
-                <a class="nav-link text-right" href="{% url 'dashboard_financial' %}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span> الشحنات</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link text-right" href="{% url 'dashboard_financial' %}">
+                <a class="nav-link text-right" href="{% url 'driver_list'%}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span> السائقين</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link text-right" href="{% url 'dashboard_financial' %}">
+                    <ul class=" text-right text-light">
+                        <li><a href="{% url 'driver_list'  %}" class="text-decoration-none text-white fw-bolder"> قائمة السائقين</a></li>
+                        <li><a href="{% url 'add_driver'  %}" class="text-decoration-none text-white fw-bolder"> إضافة سائق</a></li>
+                        
+                    </ul>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-right" href="{% url 'dashboard_financial' %}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span> التقارير</span></a>
+                        <ul class=" text-right text-light">
+                            <li><a href="{% url 'add_invoice'%}" class="text-decoration-none text-white"> كشف اخلاء عهدة</a>
+                            </li>
+                            <li><a href="{% url 'catch_receipt_list' %}" class="text-decoration-none text-white"> سندات الصرف</a>
+                            </li>
+                            <li><a href="#" class="text-decoration-none text-white"> سندات القبض</a>
+                            </li>
+                        </ul>
+                </li>
+
+            {% if user.superuser %}
+            
+            <li class="nav-item  ">
+                <a class="nav-link text-right" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span> الموظفين</span></a>
             </li>
-
-            <!-- Divider -->
+            <li class="nav-item ">
+                <a class="nav-link text-right" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span> العملاء</span></a>
+            </li>
+            {% endif %}
+<!-- {     اقسام مخفية           } -->
+            <div>
+                <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->
             <!-- Nav Item - Pages Collapse Menu -->
             <!-- <li class="nav-item text-right">
@@ -130,6 +162,8 @@
             <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
             <!-- Sidebar Toggler (Sidebar) -->
+            </div>
+            
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
@@ -156,7 +190,7 @@
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" class="form-control bg-light border-0 small" placeholder=" بحث في النظام ......"
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
@@ -301,6 +335,7 @@
 
     <!-- Page level custom scripts -->
     <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+    
 
 </body>
 

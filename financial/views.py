@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from num2words import num2words
 
-from .models import  CatchReceipt, Invoices
+from .models import  CatchReceipt
 from .forms import AddCatch
+from .filters import CatchFielter
 
 
 def dashbaord(request):
@@ -9,33 +11,40 @@ def dashbaord(request):
 
 
 
-def all_catch_receipt_list(request):
+def catch_receipt_list(request):
     catch_receipt = CatchReceipt.objects.all()
-    return render(request, 'financial/catch/catch_receipt_list.html',{'catch_receipt':catch_receipt})
+    myFilter = CatchFielter(request.GET, queryset=catch_receipt)
+    catch_receipt = myFilter.qs
 
 
+    return render(request, 'financial/catch/catch_receipt_list.html',{
+        'catch_receipt':catch_receipt,
+        'myFilter':myFilter,
+        })
 
-
-
-def catch_receipt_list(request, status):
-    if status == 'all':
-        catch_receipt = CatchReceipt.objects.all()
-    else:
-        catch_receipt  = CatchReceipt.objects.filter(invoices_id = None )
-
-    return render(request, 'financial/catch/catch_receipt_list.html',{'catch_receipt':catch_receipt})
 
 
 def catch_receipt_details(request, pk):
     catch_receipt = get_object_or_404(CatchReceipt, pk=pk)
-    return render(request, 'financial/catch/catch_receipt_details.html',{'catch_receipt':catch_receipt})
+
+    total_amount = int(catch_receipt.amount) + int(catch_receipt.overnight) + int(catch_receipt.return_fare) - int(catch_receipt.deduction) 
+    total_ward = num2words(int(total_amount) , lang='ar')
+
+
+    return render(request, 'financial/catch/catch_receipt_details.html',{
+        'catch_receipt':catch_receipt,
+        'total_amount':total_amount,
+        'total_ward':total_ward,
+        })
 
 def add_catch_receipt(request):
     if request.method == 'POST':
         catch_receipt_form = AddCatch(request.POST, request.FILES)
         if catch_receipt_form.is_valid():
-            catch_receipt_form.save()
-            return redirect('all_catch_receipt_list')
+            form = catch_receipt_form.save()
+            form.accountant = str(request.user)
+            form.save()
+            return redirect('catch_receipt_list')
     else:
         catch_receipt_form = AddCatch()
 
@@ -48,7 +57,7 @@ def edit_catch_receipt(request, pk):
         catch_receipt_form = AddCatch(request.POST, instance=catch_receipt)
         if catch_receipt_form.is_valid():
             catch_receipt_form.save()
-            return redirect('all_catch_receipt_list')
+            return redirect('catch_receipt_list')
     else:
         catch_receipt_form = AddCatch(instance=catch_receipt)
 

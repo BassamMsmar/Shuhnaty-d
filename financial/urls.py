@@ -5,10 +5,8 @@ from . import utils
 
 urlpatterns = [
     path('financial/dashbaord/',utils.dashboard_financial, name='dashboard_financial' ),
-    path('financial/catch/',views.all_catch_receipt_list, name='all_catch_receipt_list' ),
-    path('financial/catch/<str:status>',views.catch_receipt_list, name='catch_receipt_list' ),
+    path('financial/catch/',views.catch_receipt_list, name='catch_receipt_list' ),
     path('financial/catch/details/<int:pk>',views.catch_receipt_details, name='catch_receipt_details' ),
-    # path('financial/catch/add',views.add_catch_receipt, name='add_catch_receipt' ),
     path('financial/catch/add/',views.add_catch_receipt, name='add_catch_receipt' ),
     path('financial/catch/edit/<int:pk>',views.edit_catch_receipt, name='edit_catch_receipt' ),
     path('financial/catch/delete/<int:pk>',views.delete_catch_receipt, name='delete_catch_receipt' ),

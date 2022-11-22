@@ -6,7 +6,7 @@
 <!-- butten add -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">
-        <a href="{% url 'shipments_add'%}" class="d-none d-inline-block btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Add Shipment </a>
+        <a href="{% url 'shipments_add'%}" class="d-none d-inline-block btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> شحنة جديد </a>
     </h1>
     
 </div>
@@ -24,28 +24,27 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Shipment No </th>
-                        <th>Source</th>
-                        <th>destination</th>
-                        <th>date</th>
-                        <th>driver</th>
-                        <th>employee</th>
-                        <th>customer</th>
-                        <th>status</th>
+                        <th>كشف التحميل</th>
+                        <th>المصدر</th>
+                        <th>المسار</th>
+                        <th>التاريخ</th>
+                        <th>السائق</th>
+                        <th>المسؤول</th>
+                        <th>العميل</th>
+                        <th>حالة الشحنة</th>
                     </tr>
                 </thead>
-                <tfoot>
+                <!-- <tfoot>
                     <tr>
                         <th>Shipment No </th>
                         <th>Source</th>
-                        <th>destination</th>
                         <th>date</th>
                         <th>driver/th>
                         <th>employee</th>
                         <th>customer</th>
                         <th>status</th>
                     </tr>
-                </tfoot>
+                </tfoot> -->
                 <tbody>
                     {% for shipmen in shipments %}
                         {% if user.is_superuser %}

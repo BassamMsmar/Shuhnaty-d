@@ -12,10 +12,10 @@
 
 {% block content %}
 
-<div class="form">
+<div class="form  d-block">
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ invoice_form.as_p }}
+        {{ invoice_form}}
         <input class="submit-btn" type="submit" value="create">
     </form>
 <div>

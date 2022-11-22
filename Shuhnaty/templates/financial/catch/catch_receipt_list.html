@@ -1,25 +1,20 @@
 {% extends 'base.html' %}
-
-
-
-{% block item %}
-<!-- butten add -->
-{%  include 'financial/buttons.html' %}
-
-{% endblock %}
-
-
 {% block content %}
-<div class="card-header py-3">
-    <div class="btn-group float-end " role="group" aria-label="Basic mixed styles example">
-        <button type="button" class="btn btn-success m-1"> <a href="{% url 'catch_receipt_list' status='all' %}" class="text-decoration-none text-white fw-bolder">عرض كل السندات</a></button>
-     </div>
-    <div class="btn-group float-end " role="group" aria-label="Basic mixed styles example">
-            <button type="button" class="btn btn-warning m-1"> <a href="{% url 'catch_receipt_list' status='billed' %}" class="text-decoration-none text-white fw-bolder">السندات غير المفوترة</a></button>
-    </div>
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary"> <a href="{% url 'add_catch_receipt'%}" class="text-decoration-none text-white fw-bolder">إنشاء سند جديد</a></button>
-    </div>
+<div class="card-header ">
+
+    <form method="GET">
+
+        <div class="btn btn-light">
+            الشركة: {{ myFilter.form.company }}
+            المندوب: {{ myFilter.form.delegate }}
+            المحاسب: {{ myFilter.form.accountant }}
+            من : {{ myFilter.form.start_date  }}
+            الى: {{ myFilter.form.end_date  }}
+            
+        </div>
+        <input class="submit-btn" type="submit" value="create">
+    </form>
+
 </div>
 
 <!-- جدول للعرض -->
@@ -34,35 +29,29 @@
                         <th>اسم السائق </th>
                         <th> المسار</th>
                         <th>المصدر</th>
-                        <th>المبلغ</th>
+                        <th>امين الصندوق</th>
                         <th>رقم الفاتروة</th>
 
                     </tr>
                 </thead>
-                <!-- <tfoot>
-                    <tr>
-                        <th>رقم السند </th>
-                        <th>اسم السائق </th>
-                        <th> المسار</th>
-                        <th>المصدر</th>
-                        <th>المبلغ</th>
-                    </tr>
-                </tfoot> -->
                 <tbody>
                     {% for item in catch_receipt %}
-                            <tr>
-                                <td><a href="{% url 'catch_receipt_details' item.catchReceipt_id%}">{{ item.catchReceipt_id }}</a></td>
-                                <td><a href="{% url 'driver_details' item.driver.pk%}">{{ item.driver }}</a></td>
-                                <td> من:  {{ item.source }}  -- الى: {{ item.destination }} </td>
-                                <td>{{ item.company}} </td>
-                                <td>{{ item.amount}} </td>
+                    <tr>
+                        <td><a href="{% url 'catch_receipt_details' item.catchReceipt_id%}">{{ item.catchReceipt_id }}</a></td>
+                        <td><a href="{% url 'driver_details' item.driver.pk%}">{{ item.driver }}</a></td>
+                        <td> من: {{ item.source }} -- الى: {{ item.destination }} </td>
+                        <td>{{ item.company}} </td>
 
-                                {% if item.invoices_id != None %}
-                                    <td>{{ item.invoices_id}} </td>
-                                {% else %}
-                                    <td><button type="button" class="btn btn-light border-black"> <a href="{% url 'edit_catch_receipt' item.pk%}" class="text-decoration-none text-black fw-bolder">فوترة</a></button></td>
-                                {% endif %}
-                            </tr>
+                        <td>{{ item.accountant }}</td>
+
+                        {% if item.invoices_id != None %}
+                        <td>{{ item.invoices_id}} </td>
+                        {% else %}
+                        <td><button type="button" class="btn btn-light border-black"> <a
+                                    href="{% url 'edit_catch_receipt' item.pk%}"
+                                    class="text-decoration-none text-black fw-bolder">فوترة</a></button></td>
+                        {% endif %}
+                    </tr>
                     {% endfor %}
 
                 </tbody>
